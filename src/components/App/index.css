@@ -1,0 +1,16 @@
+.App {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: calc(4 * var(--spacing-factor));
+
+  margin: calc(5 * var(--spacing-factor)) calc(4 * var(--spacing-factor));
+
+  max-width: 600px;
+  flex: 1;
+}
+
+.App__block {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: calc(2 * var(--spacing-factor));
+}
