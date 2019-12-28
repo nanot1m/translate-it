@@ -1,12 +1,12 @@
 .App {
   display: grid;
+  flex: 1;
   grid-template-columns: 1fr;
   gap: calc(4 * var(--spacing-factor));
 
-  margin: calc(5 * var(--spacing-factor)) calc(4 * var(--spacing-factor));
-
   max-width: 600px;
-  flex: 1;
+
+  margin: calc(5 * var(--spacing-factor)) calc(4 * var(--spacing-factor));
 }
 
 .App__block {

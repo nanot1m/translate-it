@@ -1,26 +1,26 @@
-import "./index.css";
+import "./index.css"
 
-import React, { useState, useCallback } from "react";
-import { TranslationBlock } from "components/TranslationBlock";
-import { unstable_batchedUpdates } from "react-dom";
+import React, { useState, useCallback } from "react"
+import { TranslationBlock } from "components/TranslationBlock"
+import { unstable_batchedUpdates } from "react-dom"
 
 const languages = [
   ["Русский", "ru"],
   ["English", "en"],
-  ["Deutsch", "de"]
-];
+  ["Deutsch", "de"],
+]
 
 export function App() {
-  const [text, setText] = useState("Hello, electron!");
-  const [lang, setLang] = useState("en");
-  const [langages, setLanguages] = useState(languages);
+  const [text, setText] = useState("Hello, electron!")
+  const [lang, setLang] = useState("en")
+  const [langages, setLanguages] = useState(languages)
 
   const handleTextChange = useCallback((text: string, lang: string) => {
     unstable_batchedUpdates(() => {
-      setText(text);
-      setLang(lang);
-    });
-  }, []);
+      setText(text)
+      setLang(lang)
+    })
+  }, [])
 
   return (
     <div className="App">
@@ -37,5 +37,5 @@ export function App() {
         </div>
       ))}
     </div>
-  );
+  )
 }

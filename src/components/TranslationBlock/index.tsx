@@ -1,66 +1,66 @@
-import "./index.css";
+import "./index.css"
 
-import React, { useState, useEffect, CSSProperties, useCallback } from "react";
-import { translator } from "translator/Translator";
+import React, { useState, useEffect, CSSProperties, useCallback } from "react"
+import { translator } from "translator/Translator"
 
 type Props = {
-  text: string;
-  fromLang: string;
-  toLang: string;
-  rows?: number;
-  onTextChange(text: string, lang: string): void;
-};
+  text: string
+  fromLang: string
+  toLang: string
+  rows?: number
+  onTextChange(text: string, lang: string): void
+}
 
 export function TranslationBlock({
   text,
   fromLang,
   toLang,
   rows = 4,
-  onTextChange
+  onTextChange,
 }: Props) {
-  const [displayingText, setDisplayingText] = useState("");
-  const [editing, setEditing] = useState(false);
-  const [editingText, setEditingText] = useState("");
+  const [displayingText, setDisplayingText] = useState("")
+  const [editing, setEditing] = useState(false)
+  const [editingText, setEditingText] = useState("")
 
   useEffect(() => {
-    let cancelled = false;
+    let cancelled = false
     async function translate() {
-      const result = await translator.translate(text, fromLang, toLang);
-      if (!cancelled) setDisplayingText(result.text[0]);
+      const result = await translator.translate(text, fromLang, toLang)
+      if (!cancelled) setDisplayingText(result.text[0])
     }
-    translate();
+    translate()
     return () => {
-      cancelled = true;
-    };
-  }, [text, fromLang, toLang]);
+      cancelled = true
+    }
+  }, [text, fromLang, toLang])
 
   const speak = useCallback(
     (ev: React.MouseEvent<HTMLButtonElement>) => {
-      ev.stopPropagation();
-      if (displayingText) translator.speak(displayingText, toLang);
+      ev.stopPropagation()
+      if (displayingText) translator.speak(displayingText, toLang)
     },
-    [displayingText]
-  );
+    [displayingText, toLang],
+  )
 
   const startEditing = useCallback(() => {
-    setEditingText(displayingText);
-    setEditing(true);
-  }, [displayingText]);
+    setEditingText(displayingText)
+    setEditing(true)
+  }, [displayingText])
 
   const endEditing = useCallback(() => {
-    setDisplayingText(editingText);
-    setEditing(false);
+    setDisplayingText(editingText)
+    setEditing(false)
     if (displayingText !== editingText) {
-      onTextChange(editingText, toLang);
+      onTextChange(editingText, toLang)
     }
-  }, [editingText, toLang, displayingText]);
+  }, [editingText, displayingText, onTextChange, toLang])
 
   const handleChange = useCallback(
     (ev: React.ChangeEvent<HTMLTextAreaElement>) => {
-      setEditingText(ev.target.value);
+      setEditingText(ev.target.value)
     },
-    []
-  );
+    [],
+  )
 
   return (
     <div
@@ -93,5 +93,5 @@ export function TranslationBlock({
         🗣
       </button>
     </div>
-  );
+  )
 }
