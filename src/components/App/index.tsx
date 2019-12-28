@@ -1,41 +1,25 @@
 import "./index.css"
 
-import React, { useState, useCallback } from "react"
+import React from "react"
+import { useObserver } from "mobx-react"
 import { TranslationBlock } from "components/TranslationBlock"
-import { unstable_batchedUpdates } from "react-dom"
+import { AppStore } from "models/AppStore"
 
-const languages = [
-  ["Русский", "ru"],
-  ["English", "en"],
-  ["Deutsch", "de"],
-]
+export function App({ store }: { store: AppStore }) {
+  const { translations, translate } = store
 
-export function App() {
-  const [text, setText] = useState("Hello, electron!")
-  const [lang, setLang] = useState("en")
-  const [langages, setLanguages] = useState(languages)
-
-  const handleTextChange = useCallback((text: string, lang: string) => {
-    unstable_batchedUpdates(() => {
-      setText(text)
-      setLang(lang)
-    })
-  }, [])
-
-  return (
+  return useObserver(() => (
     <div className="App">
-      {langages.map(([title, tLang]) => (
-        <div className="App__block" key={tLang}>
-          <h3>{title}</h3>
+      {translations.map(translation => (
+        <div className="App__block" key={translation.targetLang}>
+          <h3>{translation.title}</h3>
           <TranslationBlock
-            text={text}
-            fromLang={lang}
-            toLang={tLang}
+            translation={translation}
             rows={5}
-            onTextChange={handleTextChange}
+            onTextChange={translate}
           />
         </div>
       ))}
     </div>
-  )
+  ))
 }

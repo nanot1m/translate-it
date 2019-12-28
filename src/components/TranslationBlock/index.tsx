@@ -1,97 +1,69 @@
 import "./index.css"
 
-import React, { useState, useEffect, CSSProperties, useCallback } from "react"
-import { translator } from "translator/Translator"
+import React, { CSSProperties } from "react"
+import { Translation } from "models/Translation"
+import { useObserver, useLocalStore } from "mobx-react"
 
 type Props = {
-  text: string
-  fromLang: string
-  toLang: string
+  translation: Translation
   rows?: number
   onTextChange(text: string, lang: string): void
 }
 
 export function TranslationBlock({
-  text,
-  fromLang,
-  toLang,
+  translation,
   rows = 4,
   onTextChange,
 }: Props) {
-  const [displayingText, setDisplayingText] = useState("")
-  const [editing, setEditing] = useState(false)
-  const [editingText, setEditingText] = useState("")
-
-  useEffect(() => {
-    let cancelled = false
-    async function translate() {
-      const result = await translator.translate(text, fromLang, toLang)
-      if (!cancelled) setDisplayingText(result.text[0])
-    }
-    translate()
-    return () => {
-      cancelled = true
-    }
-  }, [text, fromLang, toLang])
-
-  const speak = useCallback(
-    (ev: React.MouseEvent<HTMLButtonElement>) => {
-      ev.stopPropagation()
-      if (displayingText) translator.speak(displayingText, toLang)
+  const store = useLocalStore(() => ({
+    isEditing: false,
+    text: "",
+    startEditing() {
+      store.text = translation.translatedText
+      store.isEditing = true
     },
-    [displayingText, toLang],
-  )
-
-  const startEditing = useCallback(() => {
-    setEditingText(displayingText)
-    setEditing(true)
-  }, [displayingText])
-
-  const endEditing = useCallback(() => {
-    setDisplayingText(editingText)
-    setEditing(false)
-    if (displayingText !== editingText) {
-      onTextChange(editingText, toLang)
-    }
-  }, [editingText, displayingText, onTextChange, toLang])
-
-  const handleChange = useCallback(
-    (ev: React.ChangeEvent<HTMLTextAreaElement>) => {
-      setEditingText(ev.target.value)
+    endEditing() {
+      if (translation.translatedText !== store.text) {
+        onTextChange(store.text, translation.targetLang)
+      }
+      translation.setTranslatedText(store.text)
+      store.isEditing = false
     },
-    [],
-  )
+    changeText(ev: React.ChangeEvent<HTMLTextAreaElement>) {
+      store.text = ev.target.value
+    },
+  }))
 
-  return (
+  return useObserver(() => (
     <div
       className="TranslationBlock"
       style={{ "--rows": rows } as CSSProperties}
     >
-      {editing ? (
+      {store.isEditing ? (
         <textarea
           className="TranslationBlock__input"
-          value={editingText}
-          onChange={handleChange}
+          value={store.text}
+          onChange={store.changeText}
           onFocus={ev => ev.target.select()}
-          onBlur={endEditing}
+          onBlur={store.endEditing}
           autoFocus
         />
       ) : (
         <div
           className="TranslationBlock__text"
           tabIndex={0}
-          onFocus={startEditing}
+          onFocus={store.startEditing}
         >
-          {displayingText}
+          {translation.translatedText}
         </div>
       )}
       <button
         className="TranslationBlock__button"
         type="button"
-        onClick={speak}
+        onClick={translation.speak}
       >
         🗣
       </button>
     </div>
-  )
+  ))
 }
