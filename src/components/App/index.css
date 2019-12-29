@@ -1,12 +1,18 @@
 .App {
   display: grid;
   flex: 1;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr auto;
   gap: calc(5 * var(--spacing-factor));
+  align-items: baseline;
 
-  max-width: 600px;
+  max-width: 800px;
 
   margin: calc(5 * var(--spacing-factor)) calc(4 * var(--spacing-factor));
+}
+
+.App__logo {
+  font-size: x-large;
+  font-family: cursive;
 }
 
 .App__header {

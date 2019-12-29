@@ -12,6 +12,11 @@ export const Translation = t
     translatedText: t.optional(t.string, ""),
     targetLang: Lang,
   })
+  .views(self => ({
+    get translatedWords() {
+      return self.translatedText.split(/\s/)
+    },
+  }))
   .actions(self => {
     const translate = flow(function* translate(text: string, lang: Lang) {
       const result = yield translator.translate(text, lang, self.targetLang)

@@ -34,6 +34,14 @@
   outline: none;
 }
 
+.TranslationBlock__word {
+  display: inline-block;
+}
+
+.TranslationBlock__word:hover {
+  background-color: antiquewhite;
+}
+
 .TranslationBlock__button {
   position: absolute;
   right: 0;

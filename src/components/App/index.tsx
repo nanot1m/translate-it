@@ -13,6 +13,7 @@ export function App({ store }: { store: AppStore }) {
 
   return useObserver(() => (
     <div className="App">
+      <div className="App__logo">translate-it</div>
       <header className="App__header">
         <DarkModeToggle />
       </header>
