@@ -1,9 +1,11 @@
-import "./index.css"
-
 import React from "react"
 import { useObserver } from "mobx-react"
+
 import { TranslationBlock } from "components/TranslationBlock"
+
 import { AppStore } from "models/AppStore"
+
+import "./index.css"
 
 export function App({ store }: { store: AppStore }) {
   const { translations, translate } = store

@@ -1,6 +1,8 @@
-import { types as t, Instance } from "mobx-state-tree"
-import { Lang, Translation, Source } from "models"
+import { Instance, types as t } from "mobx-state-tree"
+
 import { flow } from "utils/flow"
+
+import { Lang, Source, Translation } from "models"
 
 export const AppStore = t
   .model("AppStore", {

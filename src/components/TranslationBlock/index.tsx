@@ -1,8 +1,9 @@
-import "./index.css"
-
 import React, { CSSProperties } from "react"
+import { useLocalStore, useObserver } from "mobx-react"
+
 import { Translation } from "models/Translation"
-import { useObserver, useLocalStore } from "mobx-react"
+
+import "./index.css"
 
 type Props = {
   translation: Translation

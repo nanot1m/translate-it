@@ -1,6 +1,5 @@
 import { app, BrowserWindow } from "electron"
-import path from "path"
-import os from "os"
+
 declare const MAIN_WINDOW_WEBPACK_ENTRY: any
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.

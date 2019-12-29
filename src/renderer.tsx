@@ -1,9 +1,11 @@
-import "./index.css"
-
+import React from "react"
 import { render } from "react-dom"
-import { createElement } from "react"
+
 import { App } from "components/App"
+
 import { AppStore } from "models/AppStore"
+
+import "./index.css"
 
 const store = AppStore.create({
   source: {
@@ -17,4 +19,4 @@ const store = AppStore.create({
   ],
 })
 
-render(createElement(App, { store }), document.getElementById("root"))
+render(<App store={store} />, document.getElementById("root"))

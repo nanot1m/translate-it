@@ -1,8 +1,10 @@
-import { types as t, Instance } from "mobx-state-tree"
+import { Instance, types as t } from "mobx-state-tree"
+
+import { translator } from "modules/Translator"
+
+import { flow } from "utils/flow"
 
 import { Lang } from "models"
-import { translator } from "translator/Translator"
-import { flow } from "utils/flow"
 
 export const Translation = t
   .model("Translation", {
