@@ -1,6 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script>
+      const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)")
+      if (mediaQuery.matches) {
+        document.documentElement.classList.add("dark-mode")
+      }
+      mediaQuery.addEventListener("change", function() {
+        if (this.matches) {
+          document.documentElement.classList.add("dark-mode")
+        } else {
+          document.documentElement.classList.remove("dark-mode")
+        }
+      })
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />

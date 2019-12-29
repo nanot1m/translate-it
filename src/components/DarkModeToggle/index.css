@@ -1,0 +1,7 @@
+.DarkModeToggle {
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: auto 1fr;
+  gap: calc(2 * var(--spacing-factor));
+  align-items: baseline;
+}

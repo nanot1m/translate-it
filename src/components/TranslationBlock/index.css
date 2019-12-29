@@ -6,8 +6,6 @@
   position: relative;
 
   height: var(--height);
-
-  border: 1px solid var(--controls-border-color);
 }
 
 .TranslationBlock__text,
@@ -27,7 +25,13 @@
   line-height: var(--line-height-m);
 
   background-color: inherit;
-  border: none;
+  border: 2px solid var(--controls-border-color);
+  border-radius: 4px;
+}
+
+.TranslationBlock__input:focus {
+  border-color: var(--focus-color);
+  outline: none;
 }
 
 .TranslationBlock__button {

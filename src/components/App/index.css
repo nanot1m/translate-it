@@ -2,11 +2,22 @@
   display: grid;
   flex: 1;
   grid-template-columns: 1fr;
-  gap: calc(4 * var(--spacing-factor));
+  gap: calc(5 * var(--spacing-factor));
 
   max-width: 600px;
 
   margin: calc(5 * var(--spacing-factor)) calc(4 * var(--spacing-factor));
+}
+
+.App__header {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.App__translations {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: calc(4 * var(--spacing-factor));
 }
 
 .App__block {
