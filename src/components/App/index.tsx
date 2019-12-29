@@ -13,14 +13,14 @@ export function App({ store }: { store: AppStore }) {
   return useObserver(() => (
     <div className="App">
       {translations.map(translation => (
-        <div className="App__block" key={translation.targetLang}>
+        <section className="App__block" key={translation.targetLang}>
           <h3>{translation.title}</h3>
           <TranslationBlock
             translation={translation}
             rows={5}
             onTextChange={translate}
           />
-        </div>
+        </section>
       ))}
     </div>
   ))

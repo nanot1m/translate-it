@@ -16,13 +16,8 @@ export const AppStore = t
       yield Promise.all(self.translations.map(tr => tr.translate(text, lang)))
     })
 
-    function afterCreate() {
-      translate(self.source.text, self.source.lang)
-    }
-
     return {
       translate,
-      afterCreate,
     }
   })
 

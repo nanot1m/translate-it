@@ -15,7 +15,7 @@ export const Translation = t
   .actions(self => {
     const translate = flow(function* translate(text: string, lang: Lang) {
       const result = yield translator.translate(text, lang, self.targetLang)
-      setTranslatedText(result.text[0])
+      setTranslatedText(result.text)
     })
 
     function speak() {

@@ -3,6 +3,11 @@ const apiKey = process.env.TRANSLATE_API_KEY!
 const synth = window.speechSynthesis
 
 export interface TranslateResult {
+  lang: string
+  text: string
+}
+
+export interface TranslateApiResult {
   code: number
   lang: string
   text: string[]
@@ -38,7 +43,18 @@ class Translator {
       qs.append("text", text)
     }
     qs.set("lang", `${fromLang}-${toLang}`)
-    return this.makeRequest("GET", "translate", qs)
+    return this.makeRequest<TranslateApiResult>("GET", "translate", qs).then(
+      this.processTranslateResponse,
+    )
+  }
+
+  private processTranslateResponse(
+    response: TranslateApiResult,
+  ): TranslateResult {
+    return {
+      lang: response.lang,
+      text: response.text[0],
+    }
   }
 
   private async makeRequest<T>(
